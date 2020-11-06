@@ -32,7 +32,7 @@ namespace WarehousesEditor.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            if (_context.Currencies.Count() == 0)
+            if ((LastUpdated = _context.Currencies.FirstOrDefault().DateUpdated.ToString()) == null)
             {
                 _context.Currencies.Add(new Currency() { CurrencyName = "United States dollar", Code = "USD", DateUpdated = DateTime.Now, Rate=1 });
                 _context.Currencies.Add(new Currency() { CurrencyName = "Ukrainian hryvnia", Code = "UAH", DateUpdated = DateTime.Now, Rate = 1 });
@@ -40,8 +40,9 @@ namespace WarehousesEditor.Pages
                 await _context.SaveChangesAsync();
 
                 await _synchronizer.SynchronizeCurrencies();
+                LastUpdated = DateTime.Now.ToString();
             }
-            LastUpdated = _context.Currencies.FirstOrDefault().DateUpdated.ToString();
+            //LastUpdated = _context.Currencies.FirstOrDefault().DateUpdated.ToString();
 
             return Page();
         }
