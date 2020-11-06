@@ -28,7 +28,7 @@ namespace WarehousesEditor
         {
             services.AddDbContext<WarehouseDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("Warehouse")));
+                    Configuration.GetConnectionString("WarehouseOnline")));
 
             services.AddTransient<BarcodeGenerator>(x=> new BarcodeGenerator(8));
             services.AddTransient<CurrencySynchronizer>();

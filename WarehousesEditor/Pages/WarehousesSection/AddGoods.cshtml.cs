@@ -54,7 +54,7 @@ namespace WarehousesEditor.Pages.WarehousesSection
                 return Page();
             }
 
-            return RedirectToPage("./Details", WarehouseGoods.WarehouseId);
+            return RedirectToPage("./Warehouse", new { id = WarehouseGoods.WarehouseId } );
         }
     }
 }

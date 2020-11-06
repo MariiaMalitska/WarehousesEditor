@@ -68,7 +68,7 @@ namespace WarehousesEditor.Pages.WarehousesSection
                 }
             }
 
-            return RedirectToPage("./Details", new { id = WarehouseGoods.WarehouseId } );
+            return RedirectToPage("./Warehouse", new { id = WarehouseGoods.WarehouseId } );
         }
 
         private bool WarehouseGoodsExists(int id)

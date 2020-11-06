@@ -97,7 +97,7 @@ namespace WarehousesEditor.Pages.WarehousesSection
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Details", new { id = wid });
+            return RedirectToPage("./Warehouse", new { id = wid });
         }
 
         public string GetCurrencyCode(int currencyId)

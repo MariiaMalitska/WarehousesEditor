@@ -50,7 +50,20 @@ namespace WarehousesEditor.Migrations
                     table.PrimaryKey("PK_Warehouses", x => x.WarehouseId);
                 });
 
-            migrationBuilder.CreateTable(
+            migrationBuilder.Sql(
+            @"CREATE FUNCTION [dbo].[ComputePrice](@CurrencyId INT, @BaseCurrencyPrice MONEY)  
+            RETURNS MONEY  
+            AS  
+            BEGIN  
+             DECLARE @Price MONEY  
+             DECLARE @Rate MONEY
+            SELECT @Rate = Rate FROM Currencies WHERE CurrencyId = @CurrencyId
+            SET @Price = @Rate * @BaseCurrencyPrice  
+            RETURN  
+            @Price  
+            END");
+
+        migrationBuilder.CreateTable(
                 name: "Goods",
                 columns: table => new
                 {
@@ -172,10 +185,14 @@ namespace WarehousesEditor.Migrations
                 name: "IX_WarehousesGoods_GoodsId",
                 table: "WarehousesGoods",
                 column: "GoodsId");
+
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql(@"DROP FUNCTION [dbo].[ComputePrice]");
+
             migrationBuilder.DropTable(
                 name: "GoodsCategories");
 
