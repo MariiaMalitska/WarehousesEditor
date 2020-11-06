@@ -1,0 +1,45 @@
+﻿@page
+@model WarehousesEditor.Pages.CurrencySection.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Currency</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Currency.CurrencyId" />
+            <div class="form-group">
+                <label asp-for="Currency.CurrencyName" class="control-label"></label>
+                <input asp-for="Currency.CurrencyName" class="form-control" />
+                <span asp-validation-for="Currency.CurrencyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.Code" class="control-label"></label>
+                <input asp-for="Currency.Code" class="form-control" />
+                <span asp-validation-for="Currency.Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency.Rate" class="control-label"></label>
+                <input asp-for="Currency.Rate" class="form-control" />
+                <span asp-validation-for="Currency.Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

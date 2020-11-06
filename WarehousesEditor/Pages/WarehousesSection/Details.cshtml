@@ -1,0 +1,97 @@
+﻿@page
+@model WarehousesEditor.Pages.WarehousesSection.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Warehouse</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Warehouse.WarehouseName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Warehouse.WarehouseName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Warehouse.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Warehouse.Address)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Warehouse.WarehouseId">Edit</a> |
+    <a asp-page="./Index">Back to List</a> |
+    @*<button onclick="GetSum();">Get sum of all goods</button>
+    <select asp-for="CurrencyId" class="form-control" asp-items="ViewBag.CurrencyId"></select>
+    <p>@Model.Sum</p>*@
+</div>
+<hr />
+<h4>Warehouse Goods</h4>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+<form method="post">
+    <input type="hidden" asp-for="@Model.Warehouse.WarehouseId" />
+    <a asp-page="AddGoods" asp-route-id="@Model.Warehouse.WarehouseId">Add Goods</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseGoods[0].Goods.GoodsName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseGoods[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseGoods[0].Goods.BaseCurrencyPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseGoods[0].Goods.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseGoods[0].Goods.BarcodeNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseGoods[0].Goods.Currency)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WarehouseGoods)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Goods.GoodsName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Goods.BaseCurrencyPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Goods.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Goods.BarcodeNumber)
+                    </td>
+                    <td>
+                        <p>@Model.GetCurrencyCode(item.Goods.CurrencyId)</p>
+                    </td>
+                    <td>
+                        <input type="hidden" asp-for="@item.GoodsId" />
+                        <a asp-page="./EditGoods" asp-route-id="@item.GoodsId" asp-route-wid="@item.WarehouseId">Edit</a> | 
+                        <a asp-page="../GoodsSection/Details" asp-route-id="@item.GoodsId">Details</a> |
+                        <button class="btn btn-danger" asp-page-handler="deleteGoods" asp-route-id="@item.GoodsId" asp-route-wid="@item.WarehouseId">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

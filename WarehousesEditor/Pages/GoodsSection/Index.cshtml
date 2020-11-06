@@ -1,0 +1,69 @@
+﻿@page
+@model WarehousesEditor.Pages.GoodsSection.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Goods[0].GoodsName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goods[0].BaseCurrencyPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goods[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goods[0].BarcodeNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goods[0].Currency)
+            </th>
+            <th>
+                Categories
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Goods) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoodsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseCurrencyPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodeNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.Code)
+            </td>
+            <th>
+                @foreach (var category in Model.GetCategories(item.GoodsId))
+                {
+                    <p>@category.Category.CategoryName</p>
+                }
+            </th>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.GoodsId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.GoodsId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.GoodsId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
