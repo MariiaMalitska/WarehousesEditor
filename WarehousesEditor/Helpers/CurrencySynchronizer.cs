@@ -43,7 +43,7 @@ namespace WarehousesEditor.Helpers
                     {
                         if (currency.Code == "UAH")
                         {
-                            currency.Rate = 1.0m / (decimal)uahUsdCoef;
+                            currency.Rate = (decimal)uahUsdCoef;
                         }
                         else if (currency.Code == "USD")
                         {
@@ -52,7 +52,7 @@ namespace WarehousesEditor.Helpers
                         else
                         {
                             var rate = await GetRate(currency.Code);
-                            currency.Rate = (decimal.Parse(rate)) / (decimal)uahUsdCoef;
+                            currency.Rate = (decimal)uahUsdCoef/(decimal.Parse(rate));
                         }
                         currency.DateUpdated = DateTime.Now;
 
