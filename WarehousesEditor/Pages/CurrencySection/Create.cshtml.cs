@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WarehousesEditor.Helpers;
 using WarehousesEditor.Models;
@@ -37,6 +38,14 @@ namespace WarehousesEditor.Pages.CurrencySection
         {
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var temp = await _context.Currencies.FirstOrDefaultAsync(g => g.Code == Currency.Code);
+
+            if (temp != null)
+            {
+                ModelState.AddModelError("Code", "This currency already exists");
                 return Page();
             }
 

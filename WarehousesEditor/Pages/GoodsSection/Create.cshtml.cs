@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.EntityFrameworkCore;
 using WarehousesEditor.Helpers;
 using WarehousesEditor.Models;
 
@@ -43,6 +44,14 @@ namespace WarehousesEditor.Pages.GoodsSection
         {
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var temp = await _context.Goods.FirstOrDefaultAsync(g => g.GoodsName == Goods.GoodsName);
+
+            if (temp != null)
+            {
+                ModelState.AddModelError("GoodsName", "These goods already exist");
                 return Page();
             }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WarehousesEditor.Models;
 
 namespace WarehousesEditor.Pages.WarehousesSection
@@ -32,6 +33,14 @@ namespace WarehousesEditor.Pages.WarehousesSection
         {
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var temp = await _context.Warehouses.FirstOrDefaultAsync(g => g.Address == Warehouse.Address);
+
+            if (temp != null)
+            {
+                ModelState.AddModelError("Address", "This address already exists");
                 return Page();
             }
 

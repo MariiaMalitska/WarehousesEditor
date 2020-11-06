@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WarehousesEditor.Models;
 
 namespace WarehousesEditor.Pages.CategorySection
@@ -32,6 +33,14 @@ namespace WarehousesEditor.Pages.CategorySection
         {
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var temp = await _context.Categories.FirstOrDefaultAsync(g => g.CategoryName == Category.CategoryName);
+
+            if (temp != null)
+            {
+                ModelState.AddModelError("CategoryName", "This category already exists");
                 return Page();
             }
 
