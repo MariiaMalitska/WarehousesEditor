@@ -10,6 +10,7 @@
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Currency</h4>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -37,7 +38,7 @@
             @Html.DisplayFor(model => model.Currency.DateUpdated)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Currency.CurrencyId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

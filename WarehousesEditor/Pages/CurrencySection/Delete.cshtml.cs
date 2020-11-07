@@ -48,6 +48,12 @@ namespace WarehousesEditor.Pages.CurrencySection
 
             if (Currency != null)
             {
+                if (Currency.Code=="USD" || Currency.Code=="UAH" || Currency.Code=="EUR")
+                {
+                    ModelState.AddModelError("Code", "Can't delete USD, UAH or EUR");
+                    return await OnGetAsync(Currency.CurrencyId);
+                }
+
                 _context.Currencies.Remove(Currency);
                 await _context.SaveChangesAsync();
             }
