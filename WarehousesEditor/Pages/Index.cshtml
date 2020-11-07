@@ -7,7 +7,17 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Currencies last updated at: @Model.LastUpdated</p>
-    <form method="post">
-        <input type="submit" value="Synchronize Currencies" class="btn btn-primary" />
-    </form>
+    @if (Model.LastUpdated.Date != DateTime.Today)
+    {
+        <form method="post">
+            <input type="submit" value="Synchronize Currencies" class="btn btn-primary" />
+        </form>
+    }
+    else
+    {
+        <form method="post">
+            <input type="submit" value="Synchronize Currencies" class="btn btn-primary" disabled />
+        </form>
+        <p>(the "Synchronize Currencies" button is disabled because the currencies have been updated today, however you can synchronize them at "Currencies" section at any time)</p>
+    }
 </div>
