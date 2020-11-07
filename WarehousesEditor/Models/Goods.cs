@@ -21,14 +21,14 @@ namespace WarehousesEditor.Models
 
         [Required]
         [Display(Name = "Price (Base Currency)")]
-        [DisplayFormat(DataFormatString = "{0:0.000}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public decimal BaseCurrencyPrice { get; set; }
 
         [Required]
         [Display(Name = "Currency")]
         public int CurrencyId { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:0.000}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public decimal? Price { get; set; }
 
         [Display(Name = "Barcode Number")]

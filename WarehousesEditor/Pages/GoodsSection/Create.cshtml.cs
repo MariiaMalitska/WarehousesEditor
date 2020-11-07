@@ -52,7 +52,7 @@ namespace WarehousesEditor.Pages.GoodsSection
             if (temp != null)
             {
                 ModelState.AddModelError("GoodsName", "These goods already exist");
-                return Page();
+                return OnGet();
             }
 
             var barcodes = _context.Goods.Select(x=>x.BarcodeNumber).ToList();

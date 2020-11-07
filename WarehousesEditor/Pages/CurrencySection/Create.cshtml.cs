@@ -41,12 +41,12 @@ namespace WarehousesEditor.Pages.CurrencySection
                 return Page();
             }
 
-            var temp = await _context.Currencies.FirstOrDefaultAsync(g => g.Code == Currency.Code);
+            var temp = await _context.Currencies.FirstOrDefaultAsync(g => g.Code == Currency.Code || g.CurrencyName == Currency.CurrencyName);
 
             if (temp != null)
             {
                 ModelState.AddModelError("Code", "This currency already exists");
-                return Page();
+                return OnGet();
             }
 
             // automatic rate

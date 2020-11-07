@@ -27,20 +27,18 @@ namespace WarehousesEditor.Pages.WarehousesSection
         [BindProperty]
         public Warehouse Warehouse { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var temp = await _context.Warehouses.FirstOrDefaultAsync(g => g.Address == Warehouse.Address);
+            var temp = await _context.Warehouses.FirstOrDefaultAsync(g => g.Address == Warehouse.Address || g.WarehouseName == Warehouse.WarehouseName);
 
             if (temp != null)
             {
-                ModelState.AddModelError("Address", "This address already exists");
+                ModelState.AddModelError("WarehouseName", "This warehouse already exists");
+                return OnGet();
+            }
+
+            if (!ModelState.IsValid)
+            {
                 return Page();
             }
 

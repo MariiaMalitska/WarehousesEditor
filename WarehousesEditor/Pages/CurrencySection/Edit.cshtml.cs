@@ -38,13 +38,20 @@ namespace WarehousesEditor.Pages.CurrencySection
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            var temp = await _context.Currencies.
+                FirstOrDefaultAsync(g => (g.Code == Currency.Code || g.CurrencyName == Currency.CurrencyName) && g.CurrencyId != Currency.CurrencyId);
+
+            if (temp != null)
+            {
+                ModelState.AddModelError("Code", "This currency already exists");
+                return await OnGetAsync(Currency.CurrencyId);
             }
 
             Currency.DateUpdated = DateTime.Now;

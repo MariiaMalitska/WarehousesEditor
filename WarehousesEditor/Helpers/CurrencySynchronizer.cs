@@ -15,6 +15,8 @@ namespace WarehousesEditor.Helpers
         private readonly WarehouseDbContext _context;
         private readonly ILogger<CurrencySynchronizer> _logger;
 
+        private readonly string BaseCurrency = "USD";
+
         public CurrencySynchronizer(WarehouseDbContext context, ILogger<CurrencySynchronizer> logger)
         {
             _context = context;
@@ -77,15 +79,7 @@ namespace WarehousesEditor.Helpers
 
         public async Task<string> GetCoef()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://bank.gov.ua/");
-                var response = await client.GetAsync($"NBUStatService/v1/statdirectory/exchange?valcode=USD&json");
-                var stringResult = await response.Content.ReadAsStringAsync();
-                dynamic arr = JsonConvert.DeserializeObject(stringResult);
-                string rate = arr[0].rate;
-                return rate;
-            }
+            return await GetRate(BaseCurrency);
         }
 
         public async Task<string> GetRate(string currencyCode)

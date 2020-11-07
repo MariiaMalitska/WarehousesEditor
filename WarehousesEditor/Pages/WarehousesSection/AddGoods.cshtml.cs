@@ -19,7 +19,7 @@ namespace WarehousesEditor.Pages.WarehousesSection
             _context = context;
         }
 
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int id)
         {
             ViewData["GoodsId"] = new SelectList(_context.Goods, "GoodsId", "GoodsName");
             if (id == null)
@@ -34,7 +34,7 @@ namespace WarehousesEditor.Pages.WarehousesSection
         [BindProperty]
         public WarehouseGoods WarehouseGoods { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -43,16 +43,14 @@ namespace WarehousesEditor.Pages.WarehousesSection
 
             var temp = _context.WarehousesGoods.FirstOrDefault(x => x.GoodsId == WarehouseGoods.GoodsId && x.WarehouseId == WarehouseGoods.WarehouseId);
 
-            if (temp == null)
-            {
-                _context.WarehousesGoods.Add(WarehouseGoods);
-                await _context.SaveChangesAsync();
-            }
-            else
+            if (temp != null)
             {
                 ModelState.AddModelError("GoodsId", "These goods already exist in this warehouse");
-                return Page();
+                return OnGet(WarehouseGoods.WarehouseId);
             }
+
+            _context.WarehousesGoods.Add(WarehouseGoods);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Warehouse", new { id = WarehouseGoods.WarehouseId } );
         }

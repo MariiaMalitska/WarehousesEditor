@@ -40,6 +40,15 @@ namespace WarehousesEditor.Pages.WarehousesSection
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var temp = await _context.Warehouses.FirstOrDefaultAsync(g => g.Address == Warehouse.Address || g.WarehouseName == Warehouse.WarehouseName);
+
+            if (temp != null && temp.WarehouseId!=Warehouse.WarehouseId)
+            {
+                ModelState.AddModelError("WarehouseName", "This warehouse already exists");
+                return await OnGetAsync(Warehouse.WarehouseId);
+            }
+
+
             if (!ModelState.IsValid)
             {
                 return Page();

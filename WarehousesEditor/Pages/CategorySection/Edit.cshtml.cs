@@ -38,13 +38,19 @@ namespace WarehousesEditor.Pages.CategorySection
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            var temp = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryName == Category.CategoryName);
+
+            if (temp != null && temp.CategoryId != Category.CategoryId)
+            {
+                ModelState.AddModelError("CategoryName", "This category already exists");
+                return await OnGetAsync(Category.CategoryId);
             }
 
             _context.Attach(Category).State = EntityState.Modified;

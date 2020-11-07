@@ -44,7 +44,7 @@ namespace WarehousesEditor.Pages.GoodsSection
                                       c.CategoryName
                                   }).ToList();
 
-            ViewData["Categories"] = new MultiSelectList(categories, "CategoryId", "CategoryName", Goods.GoodsCategories.Select(x=>x.CategoryId).ToArray());
+            ViewData["Categories"] = new MultiSelectList(categories, "CategoryId", "CategoryName", Goods.GoodsCategories.Select(x => x.CategoryId).ToArray());
             ViewData["CurrencyId"] = new SelectList(_context.Currencies, "CurrencyId", "Code");
 
             return Page();
@@ -56,7 +56,14 @@ namespace WarehousesEditor.Pages.GoodsSection
             {
                 return Page();
             }
-            _context.Goods.Add(Goods);
+
+            var temp = await _context.Goods.FirstOrDefaultAsync(g => g.GoodsName == Goods.GoodsName);
+
+            if (temp != null && temp.GoodsId != Goods.GoodsId)
+            {
+                ModelState.AddModelError("GoodsName", "These goods already exist");
+                return await OnGetAsync(Goods.GoodsId);
+            }
 
             _context.Attach(Goods).State = EntityState.Modified;
 

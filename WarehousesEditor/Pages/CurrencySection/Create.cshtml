@@ -1,6 +1,5 @@
 ﻿@page
 @model WarehousesEditor.Pages.CurrencySection.CreateModel
-@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
 @{
     ViewData["Title"] = "Create";
@@ -9,6 +8,7 @@
 <h1>Create</h1>
 
 <h4>Currency</h4>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 <hr />
 <div class="row">
     <div class="col-md-4">
