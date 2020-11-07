@@ -55,7 +55,7 @@ namespace WarehousesEditor.Pages.CurrencySection
             }
 
             Currency.Code = Currency.Code.ToUpper();
-            Currency.DateUpdated = DateTime.Now;
+            //Currency.DateUpdated = DateTime.Now;
             _context.Attach(Currency).State = EntityState.Modified;
 
             try

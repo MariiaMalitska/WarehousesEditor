@@ -53,7 +53,7 @@ namespace WarehousesEditor.Helpers
                         }
                         else
                         {
-                            var rate = await GetRate(currency.Code);
+                            var rate = await GetRateToUah(currency.Code);
                             currency.Rate = (decimal)uahUsdCoef/(decimal.Parse(rate));
                         }
                         currency.DateUpdated = DateTime.Now;
@@ -79,10 +79,10 @@ namespace WarehousesEditor.Helpers
 
         public async Task<string> GetCoef()
         {
-            return await GetRate(BaseCurrency);
+            return await GetRateToUah(BaseCurrency);
         }
 
-        public async Task<string> GetRate(string currencyCode)
+        public async Task<string> GetRateToUah(string currencyCode)
         {
             using (var client = new HttpClient())
             {

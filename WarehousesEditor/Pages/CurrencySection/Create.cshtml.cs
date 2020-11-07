@@ -54,9 +54,9 @@ namespace WarehousesEditor.Pages.CurrencySection
             // automatic rate
             try
             {
-                var rate = await _synchronizer.GetRate(Currency.Code);
+                var rate = await _synchronizer.GetRateToUah(Currency.Code);
                 var coef = await _synchronizer.GetCoef();
-                Currency.Rate = decimal.Parse(rate)/decimal.Parse(coef);
+                Currency.Rate = decimal.Parse(coef)/decimal.Parse(rate);
                 Currency.DateUpdated = DateTime.Now;
                 _context.Currencies.Add(Currency);
                 await _context.SaveChangesAsync();               
