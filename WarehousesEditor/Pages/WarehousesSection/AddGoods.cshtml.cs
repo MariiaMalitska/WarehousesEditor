@@ -19,7 +19,7 @@ namespace WarehousesEditor.Pages.WarehousesSection
             _context = context;
         }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet(int? id)
         {
             ViewData["GoodsId"] = new SelectList(_context.Goods, "GoodsId", "GoodsName");
             if (id == null)
