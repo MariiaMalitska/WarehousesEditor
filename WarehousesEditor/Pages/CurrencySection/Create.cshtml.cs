@@ -49,6 +49,8 @@ namespace WarehousesEditor.Pages.CurrencySection
                 return OnGet();
             }
 
+            Currency.Code = Currency.Code.ToUpper();
+
             // automatic rate
             try
             {

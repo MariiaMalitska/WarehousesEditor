@@ -54,6 +54,7 @@ namespace WarehousesEditor.Pages.CurrencySection
                 return await OnGetAsync(Currency.CurrencyId);
             }
 
+            Currency.Code = Currency.Code.ToUpper();
             Currency.DateUpdated = DateTime.Now;
             _context.Attach(Currency).State = EntityState.Modified;
 
