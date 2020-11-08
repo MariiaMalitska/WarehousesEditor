@@ -23,10 +23,10 @@
                 @Html.DisplayNameFor(model => model.Goods[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Goods[0].BarcodeNumber)
+                @Html.DisplayNameFor(model => model.Goods[0].Currency)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Goods[0].Currency)
+                @Html.DisplayNameFor(model => model.Goods[0].BarcodeNumber)
             </th>
             <th>
                 Categories
@@ -47,10 +47,10 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BarcodeNumber)
+                @Html.DisplayFor(modelItem => item.Currency.Code)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Currency.Code)
+                @Html.DisplayFor(modelItem => item.BarcodeNumber)
             </td>
             <th>
                 @foreach (var category in Model.GetCategories(item.GoodsId))
